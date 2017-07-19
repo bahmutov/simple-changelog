@@ -1,5 +1,5 @@
 'use strict'
 
+const formChangelog = require('./changelog').formChangelog
 
-module.exports = true
-
+module.exports = formChangelog

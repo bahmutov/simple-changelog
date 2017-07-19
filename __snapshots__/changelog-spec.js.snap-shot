@@ -1,0 +1,25 @@
+exports['forms changelog 1'] = "## New features 👍\n### streams\n* output stdout and stderr, fixes #1, #2 (aaaabbbbccccddddeeeeffff1111222233334444)\n\n## Bug fixes ✅\n### doc\n* updated documentation (aaaabbbbccccddddeeeeffff1111222233334444)\n\n"
+
+exports['groups 1'] = {
+  "feat": [
+    {
+      "firstLine": "feat(streams): output stdout and stderr, fixes #1, #2",
+      "type": "feat",
+      "scope": "streams",
+      "subject": "output stdout and stderr, fixes #1, #2",
+      "id": "aaaabbbbccccddddeeeeffff1111222233334444"
+    }
+  ],
+  "fix": [
+    {
+      "firstLine": "fix(doc): updated documentation",
+      "type": "fix",
+      "scope": "doc",
+      "subject": "updated documentation",
+      "id": "aaaabbbbccccddddeeeeffff1111222233334444"
+    }
+  ]
+}
+
+exports['version and public commits 1'] = "<a name=\"1.0.2\"></a>\n# 1.0.2 (2000-04-20)\n## New features 👍\n### streams\n* output stdout and stderr, fixes #1, #2 (aaaabbbbccccddddeeeeffff1111222233334444)\n\n## Bug fixes ✅\n### doc\n* updated documentation (aaaabbbbccccddddeeeeffff1111222233334444)\n\n"
+

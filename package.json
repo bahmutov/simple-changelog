@@ -72,11 +72,12 @@
     "github-post-release": "1.7.2",
     "license-checker": "13.0.2",
     "mocha": "3.4.2",
+    "mockdate": "2.0.1",
     "nsp": "2.6.3",
     "pre-git": "3.15.0",
     "prettier-standard": "6.0.0",
     "semantic-release": "6.3.6",
-    "simple-commit-message": "3.2.0",
+    "snap-shot": "2.17.0",
     "standard": "10.0.2"
   },
   "release": {
@@ -86,5 +87,13 @@
       "path": "dont-crack",
       "test-against": []
     }
+  },
+  "dependencies": {
+    "check-more-types": "2.24.0",
+    "common-tags": "1.4.0",
+    "lazy-ass": "1.6.0",
+    "new-public-commits": "1.2.0",
+    "ramda": "0.24.1",
+    "simple-commit-message": "3.2.0"
   }
 }

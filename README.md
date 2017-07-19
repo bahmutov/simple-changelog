@@ -16,7 +16,32 @@ Requires [Node](https://nodejs.org/en/) version 6 or above.
 npm install --save simple-changelog
 ```
 
+## Examples
+
+See these example release docs
+
+* [github-post-release/releases](https://github.com/bahmutov/github-post-release/releases)
+
 ## Use
+
+To get good release changelog from semantic commits
+
+```js
+const changelog = require('simple-changelog')
+changelog('1.2.3')
+  .then(console.log)
+```
+
+Prints Markdown like with grouped breaking changes, new features and bug
+fixes.
+
+```
+# 1.2.3 (2017-07-19)
+## New features
+### docs
+* documentation feature 1 (sha)
+...
+```
 
 ### Small print
 
