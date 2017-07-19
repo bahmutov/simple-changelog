@@ -6,6 +6,9 @@ notifications:
   email: true
 node_js:
   - '6'
+script:
+  - ./next-update-travis.sh
+  - npm test
 before_script:
   - npm prune
 after_success:
