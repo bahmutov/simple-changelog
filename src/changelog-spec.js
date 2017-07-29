@@ -60,3 +60,25 @@ describe('group commits by type', () => {
     snapshot(groups)
   })
 })
+
+describe('scopeless commits', () => {
+  const commits = [
+    {
+      message: 'major: first release',
+      id: '8e298fcb72441f33ef12de67312f5fed8e665ce4'
+    },
+    {
+      message: 'feat(doc): update readme',
+      id: '8e298fcb72441f33ef12de67312f5fed8e660000'
+    },
+    {
+      message: 'major(test): rewrite tests',
+      id: '8e298fcb72441f33ef12de67312fbbbd8e660000'
+    }
+  ]
+
+  it('creates changelog', () => {
+    const log = commitsToString(commits)
+    snapshot(log)
+  })
+})

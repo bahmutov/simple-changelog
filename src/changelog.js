@@ -10,7 +10,7 @@ const isCommit = is.schema({
   id: is.commitId,
   subject: is.unemptyString,
   type: is.unemptyString,
-  scope: is.unemptyString
+  scope: is.maybe.unemptyString
 })
 
 function groupCommits (commits) {
@@ -41,7 +41,9 @@ function scopeCommits (commits) {
   let s = ''
   Object.keys(grouped).forEach(scope => {
     const scopedCommits = grouped[scope]
-    s += '### ' + scope + '\n'
+    if (scope !== 'undefined') {
+      s += '### ' + scope + '\n'
+    }
     s += commitSubjectList(scopedCommits) + '\n'
   })
   return s
