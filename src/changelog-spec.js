@@ -6,6 +6,7 @@ const snapshot = require('snap-shot')
 
 /* eslint-env mocha */
 const {
+  allCommitsToString,
   commitsToString,
   versionAndCommitsToLog,
   groupCommits
@@ -38,6 +39,17 @@ describe('commits to changelog', () => {
 
   it('forms changelog', () => {
     const log = commitsToString(commits)
+    snapshot(log)
+  })
+})
+
+describe('all commits to changelog', () => {
+  it('is a function', () => {
+    la(is.fn(allCommitsToString))
+  })
+
+  it('forms changelog from all commits', () => {
+    const log = allCommitsToString(commits)
     snapshot(log)
   })
 })

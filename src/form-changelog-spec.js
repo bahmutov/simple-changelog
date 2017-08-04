@@ -9,7 +9,7 @@ const utils = require('./utils')
 /* eslint-env mocha */
 const { formChangelog } = require('./changelog')
 
-describe.only('form changelog', () => {
+describe('form changelog', () => {
   beforeEach(() => {
     sinon.stub(utils, 'getDateString').returns('2000-04-20')
   })
@@ -40,11 +40,15 @@ describe.only('form changelog', () => {
     })
 
     it('picks semantic commits', () => {
+      return snapshot(formChangelog('1.0.0'))
+    })
+
+    it('picks semantic commits ignoring n', () => {
       return snapshot(formChangelog('1.0.0', 10))
     })
   })
 
-  describe('without semantic commits', () => {
+  describe.skip('without semantic commits', () => {
     const logPretty = stripIndent`
       commit b9511fe8414722268b02d6d454e5ed55ccca216d
       Author: Gleb Bahmutov <gleb.bahmutov@gmail.com>
@@ -61,6 +65,11 @@ describe.only('form changelog', () => {
     const tags = ''
 
     beforeEach(() => {
+      // first tries to get semantic commits
+      stubExecOnce('git log --pretty=full', logPretty)
+      stubExecOnce('git tag --sort version:refname', tags)
+      // then tries to get all commits
+      // hmm, stubExecOnce does not create the same stub twice :(
       stubExecOnce('git log --pretty=full', logPretty)
       stubExecOnce('git tag --sort version:refname', tags)
     })

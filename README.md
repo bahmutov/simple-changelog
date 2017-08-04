@@ -44,6 +44,22 @@ fixes.
 ...
 ```
 
+## Non-semantic mode
+
+Sometimes we want to publish release notes, even if we have not followed
+semantic convention. For this, pass a number of commits to allow including
+in the log. For example
+
+```js
+const changelog = require('simple-changelog')
+changelog('1.2.3', 3)
+  .then(console.log)
+```
+
+If there are semantic commits - only semantic public commits will be used.
+If there are fewer than 3 commits (of any type), they will be in the changelog.
+Otherwise the log will have only the version and the date.
+
 ## Debugging
 
 Run with `DEBUG=simple-changelog ...` environment variable

@@ -69,13 +69,36 @@ function commitsToString (commits) {
   return msg
 }
 
-function versionAndCommitsToLog (version, commits) {
+function allCommitsToString (commits) {
+  console.log(commits)
+  const extended = commits.map(c => {
+    return {
+      id: c.id,
+      subject: c.message,
+      type: 'unknown type'
+    }
+  })
+  return commitSubjectList(extended)
+}
+
+function getTagString (version) {
   const date = utils.getDateString()
   const head = stripIndent`
     <a name="${version}"></a>
     # ${version} (${date})
   `
+  return head
+}
+
+function versionAndCommitsToLog (version, commits) {
+  const head = getTagString(version)
   const commitsLog = commitsToString(commits)
+  return head + '\n' + commitsLog
+}
+
+function versionAndAllCommitsToLog (version, commits) {
+  const head = getTagString(version)
+  const commitsLog = allCommitsToString(commits)
   return head + '\n' + commitsLog
 }
 
@@ -84,31 +107,33 @@ function formChangelog (version, n) {
   if (arguments.length === 2) {
     la(is.positive(n), 'invalid number of commits', n)
   }
-  return newPublicCommits()
-    .then(commits => {
-      debug('found %d public commit(s)', commits.length)
+  return newPublicCommits().then(commits => {
+    debug('found %d public commit(s)', commits.length)
 
-      if (is.empty(commits)) {
-        if (n) {
-          debug('getting commits after last tag')
-          return ggit.commits.afterLastTag().then(list => {
-            debug('%d commit(s) after last tag', list.length)
-            if (list.length < n) {
-              return list
-            } else {
-              return commits
-            }
-          })
-        }
+    if (is.not.empty(commits)) {
+      return versionAndCommitsToLog(version, commits)
+    }
+    if (!n) {
+      return versionAndCommitsToLog(version, commits)
+    }
+
+    debug('getting commits after last tag')
+    return ggit.commits.afterLastTag().then(list => {
+      debug('%d commit(s) after last tag', list.length)
+      if (list.length < n) {
+        return versionAndAllCommitsToLog(version, list)
+      } else {
+        return versionAndCommitsToLog(version, commits)
       }
-      return commits
     })
-    .then(commits => versionAndCommitsToLog(version, commits))
+  })
 }
 
 module.exports = {
   formChangelog,
   versionAndCommitsToLog,
+  versionAndAllCommitsToLog,
+  allCommitsToString,
   commitsToString,
   groupCommits
 }

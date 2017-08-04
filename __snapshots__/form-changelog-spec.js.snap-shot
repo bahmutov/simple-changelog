@@ -2,3 +2,5 @@ exports['picks semantic commits 1'] = "<a name=\"1.0.0\"></a>\n# 1.0.0 (2000-04-
 
 exports['picks all commits 1'] = "<a name=\"1.0.0\"></a>\n# 1.0.0 (2000-04-20)\n"
 
+exports['picks semantic commits ignoring n 1'] = "<a name=\"1.0.0\"></a>\n# 1.0.0 (2000-04-20)\n## Bug fixes ✅\n### scopeless\n* handle scopeless commits, fix #1 (4422cb3f730d7fbaa187b3e433a3cfc2e382fe50)\n\n"
+
