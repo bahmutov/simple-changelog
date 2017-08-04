@@ -25,3 +25,5 @@ exports['version and public commits 1'] = "<a name=\"1.0.2\"></a>\n# 1.0.2 (2000
 
 exports['creates changelog 1'] = "## Breaking major changes 🔥\n* first release (8e298fcb72441f33ef12de67312f5fed8e665ce4)\n### test\n* rewrite tests (8e298fcb72441f33ef12de67312fbbbd8e660000)\n\n## New features 👍\n### doc\n* update readme (8e298fcb72441f33ef12de67312f5fed8e660000)\n\n"
 
+exports['forms changelog from all commits 1'] = "* feat(streams): output stdout and stderr, fixes #1, #2 (aaaabbbbccccddddeeeeffff1111222233334444)\n* initial (6f272d6) (aaaabbbbccccddddeeeeffff1111222233334444)\n* limit builds on CI to Node 6 (dfe6bd5) (aaaabbbbccccddddeeeeffff1111222233334444)\n* fix(doc): updated documentation (aaaabbbbccccddddeeeeffff1111222233334444)"
+
