@@ -44,6 +44,10 @@ fixes.
 ...
 ```
 
+## Debugging
+
+Run with `DEBUG=simple-changelog ...` environment variable
+
 ### Small print
 
 Author: Gleb Bahmutov &lt;gleb.bahmutov@gmail.com&gt; &copy; 2017

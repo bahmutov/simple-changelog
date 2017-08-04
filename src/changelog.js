@@ -5,6 +5,9 @@ const { stripIndent } = require('common-tags')
 const la = require('lazy-ass')
 const is = require('check-more-types')
 const simple = require('simple-commit-message')
+const ggit = require('ggit')
+const debug = require('debug')('simple-changelog')
+const utils = require('./utils')
 
 const isCommit = is.schema({
   id: is.commitId,
@@ -66,13 +69,8 @@ function commitsToString (commits) {
   return msg
 }
 
-function getDateString () {
-  const d = new Date()
-  return d.toISOString().split('T')[0]
-}
-
 function versionAndCommitsToLog (version, commits) {
-  const date = getDateString()
+  const date = utils.getDateString()
   const head = stripIndent`
     <a name="${version}"></a>
     # ${version} (${date})
@@ -81,11 +79,31 @@ function versionAndCommitsToLog (version, commits) {
   return head + '\n' + commitsLog
 }
 
-function formChangelog (version) {
+function formChangelog (version, n) {
   la(is.unemptyString(version), 'missing release version')
-  return newPublicCommits().then(commits =>
-    versionAndCommitsToLog(version, commits)
-  )
+  if (arguments.length === 2) {
+    la(is.positive(n), 'invalid number of commits', n)
+  }
+  return newPublicCommits()
+    .then(commits => {
+      debug('found %d public commit(s)', commits.length)
+
+      if (is.empty(commits)) {
+        if (n) {
+          debug('getting commits after last tag')
+          return ggit.commits.afterLastTag().then(list => {
+            debug('%d commit(s) after last tag', list.length)
+            if (list.length < n) {
+              return list
+            } else {
+              return commits
+            }
+          })
+        }
+      }
+      return commits
+    })
+    .then(commits => versionAndCommitsToLog(version, commits))
 }
 
 module.exports = {

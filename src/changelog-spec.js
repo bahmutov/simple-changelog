@@ -4,7 +4,7 @@ const la = require('lazy-ass')
 const is = require('check-more-types')
 const snapshot = require('snap-shot')
 
-/* global describe, it */
+/* eslint-env mocha */
 const {
   commitsToString,
   versionAndCommitsToLog,
