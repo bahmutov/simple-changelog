@@ -1,3 +1,3 @@
 const formChangelog = require('.')
-formChangelog()
+formChangelog('1.0.0')
   .then(console.log)
