@@ -5,16 +5,16 @@ cache:
 notifications:
   email: true
 node_js:
+  - '4'
   - '6'
 script:
-  - ./next-update-travis.sh
   - npm run demo
-  # run test only if node 6?
-  - npm test
+  - ./next-update-travis.sh
+  - $(npm bin)/if-node-version ">=6" npm test
 before_script:
   - npm prune
 after_success:
-  - npm run semantic-release
+  - TRAVIS_JOB_NUMBER=WORKAROUND.1 $(npm bin)/if-node-version ">=6" npm run semantic-release
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
