@@ -8,6 +8,8 @@ node_js:
   - '6'
 script:
   - ./next-update-travis.sh
+  - npm run demo
+  # run test only if node 6?
   - npm test
 before_script:
   - npm prune

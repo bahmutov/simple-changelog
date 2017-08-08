@@ -1,7 +1,9 @@
+'use strict'
+
 const R = require('ramda')
 const leavePublic = require('new-public-commits').leavePublic
 const newPublicCommits = require('new-public-commits').newPublicCommits
-const { stripIndent } = require('common-tags')
+const stripIndent = require('common-tags').stripIndent
 const la = require('lazy-ass')
 const is = require('check-more-types')
 const simple = require('simple-commit-message')
