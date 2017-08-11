@@ -9,7 +9,9 @@ const {
   allCommitsToString,
   commitsToString,
   versionAndCommitsToLog,
-  groupCommits
+  groupCommits,
+  groupParsedCommits,
+  groupedToString
 } = require('./changelog')
 
 const commit = 'aaaabbbbccccddddeeeeffff1111222233334444'
@@ -39,6 +41,23 @@ describe('commits to changelog', () => {
 
   it('forms changelog', () => {
     const log = commitsToString(commits)
+    snapshot(log)
+  })
+})
+
+describe('edge case', () => {
+  it('handles scope less commits', () => {
+    const commits = [
+      {
+        firstLine: 'feat: support postinstall commands for dependencies',
+        type: 'feat',
+        scope: undefined,
+        subject: 'support postinstall commands for dependencies'
+      }
+    ]
+    const grouped = groupParsedCommits(commits)
+    snapshot(grouped)
+    const log = groupedToString(grouped)
     snapshot(log)
   })
 })

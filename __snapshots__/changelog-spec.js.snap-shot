@@ -27,3 +27,15 @@ exports['creates changelog 1'] = "## Breaking major changes 🔥\n* first releas
 
 exports['forms changelog from all commits 1'] = "* feat(streams): output stdout and stderr, fixes #1, #2 (aaaabbbbccccddddeeeeffff1111222233334444)\n* initial (6f272d6) (aaaabbbbccccddddeeeeffff1111222233334444)\n* limit builds on CI to Node 6 (dfe6bd5) (aaaabbbbccccddddeeeeffff1111222233334444)\n* fix(doc): updated documentation (aaaabbbbccccddddeeeeffff1111222233334444)"
 
+exports['handles scope less commits 1'] = {
+  "feat": [
+    {
+      "firstLine": "feat: support postinstall commands for dependencies",
+      "type": "feat",
+      "subject": "support postinstall commands for dependencies"
+    }
+  ]
+}
+
+exports['handles scope less commits 2'] = "## New features 👍\n* support postinstall commands for dependencies\n\n"
+

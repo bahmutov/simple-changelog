@@ -12,11 +12,17 @@ const debug = require('debug')('simple-changelog')
 const utils = require('./utils')
 
 const isCommit = is.schema({
-  id: is.commitId,
+  id: is.maybe.commitId,
   subject: is.unemptyString,
   type: is.unemptyString,
   scope: is.maybe.unemptyString
 })
+
+function groupParsedCommits (commits) {
+  la(is.array(commits), 'expected a list', commits)
+  const grouped = R.groupBy(R.prop('type'), commits)
+  return grouped
+}
 
 function groupCommits (commits) {
   const parsed = commits
@@ -28,13 +34,16 @@ function groupCommits (commits) {
       return p
     })
     .filter(is.defined)
-  const grouped = R.groupBy(R.prop('type'), parsed)
-  return grouped
+  return groupParsedCommits(parsed)
 }
 
 function commitString (commit) {
   la(isCommit(commit), 'invalid commit format', commit)
-  return '* ' + commit.subject + ' (' + commit.id + ')'
+  let msg = '* ' + commit.subject
+  if (commit.id) {
+    msg += ' (' + commit.id + ')'
+  }
+  return msg
 }
 
 function commitSubjectList (commits) {
@@ -54,9 +63,7 @@ function scopeCommits (commits) {
   return s
 }
 
-function commitsToString (commits) {
-  const filtered = leavePublic(commits)
-  const grouped = groupCommits(filtered)
+function groupedToString (grouped) {
   let msg = ''
 
   if (is.array(grouped.major)) {
@@ -71,7 +78,14 @@ function commitsToString (commits) {
   return msg
 }
 
+function commitsToString (commits) {
+  const filtered = leavePublic(commits)
+  const grouped = groupCommits(filtered)
+  return groupedToString(grouped)
+}
+
 function allCommitsToString (commits) {
+  console.log('all commits to string')
   console.log(commits)
   const extended = commits.map(c => {
     return {
@@ -137,5 +151,7 @@ module.exports = {
   versionAndAllCommitsToLog,
   allCommitsToString,
   commitsToString,
-  groupCommits
+  groupCommits,
+  groupParsedCommits,
+  groupedToString
 }
