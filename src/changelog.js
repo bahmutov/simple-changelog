@@ -64,6 +64,9 @@ function scopeCommits (commits) {
 }
 
 function groupedToString (grouped) {
+  debug('forming changelog from commits group')
+  debug(grouped)
+
   let msg = ''
 
   if (is.array(grouped.major)) {
@@ -80,6 +83,8 @@ function groupedToString (grouped) {
 
 function commitsToString (commits) {
   const filtered = leavePublic(commits)
+  debug('only public commits')
+  debug(filtered)
   const grouped = groupCommits(filtered)
   return groupedToString(grouped)
 }
